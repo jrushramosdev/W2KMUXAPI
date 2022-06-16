@@ -1,0 +1,15 @@
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\bin\Debug\net5.0\W2KMUXBAL.deps.json
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\bin\Debug\net5.0\W2KMUXBAL.dll
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\bin\Debug\net5.0\W2KMUXBAL.pdb
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\bin\Debug\net5.0\W2KMUXDAL.dll
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\bin\Debug\net5.0\W2KMUXDAL.pdb
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.csproj.AssemblyReference.cache
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.AssemblyInfoInputs.cache
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.AssemblyInfo.cs
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.csproj.CoreCompileInputs.cache
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.csproj.CopyComplete
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.dll
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\refint\W2KMUXBAL.dll
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\W2KMUXBAL.pdb
+C:\Source Code\W2KMUX\W2KMUXAPI\W2KMUXBAL\obj\Debug\net5.0\ref\W2KMUXBAL.dll
