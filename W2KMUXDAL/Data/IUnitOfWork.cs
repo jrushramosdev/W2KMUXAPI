@@ -14,7 +14,8 @@ namespace W2KMUXDAL.Data
         IPPVManagementRepository PPVManagementRepository { get; }
         ITeamHistoryRepository TeamHistoryRepository { get; }
         ITeamManagementRepository TeamManagementRepository { get; }
-  
+        IChampionshipTypeManagementRepository ChampionshipTypeManagementRepository { get; }
+
         Task<bool> SaveAsync();
     }
 }

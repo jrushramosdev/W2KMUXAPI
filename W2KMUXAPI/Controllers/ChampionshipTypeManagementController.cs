@@ -8,19 +8,18 @@ namespace W2KMUXAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class PPVManagementController : ControllerBase
+    public class ChampionshipTypeManagementController : ControllerBase
     {
-        private readonly IPPVManagementBAL _ppvManagementBAL;
-
-        public PPVManagementController(IPPVManagementBAL ppvManagementBAL)
+        private readonly IChampionshipTypeManagementBAL _championshipTypeManagementBAL;
+        public ChampionshipTypeManagementController(IChampionshipTypeManagementBAL championshipTypeManagementBAL)
         {
-            _ppvManagementBAL = ppvManagementBAL;
+            _championshipTypeManagementBAL = championshipTypeManagementBAL;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPPVManagementList()
+        public async Task<IActionResult> GetChampionshipTypeManagementList()
         {
-            var result = await _ppvManagementBAL.GetPPVManagementList();
+            var result = await _championshipTypeManagementBAL.GetChampionshipTypeManagementList();
             if (result != null)
             {
                 return Ok(result);
@@ -32,9 +31,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPPVManagement(string id)
+        public async Task<IActionResult> GetChampionshipTypeManagement(string id)
         {
-            var result = await _ppvManagementBAL.GetPPVManagement(new Guid(id));
+            var result = await _championshipTypeManagementBAL.GetChampionshipTypeManagement(new Guid(id));
             if (result != null)
             {
                 return Ok(result);
@@ -46,9 +45,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddPPVManagement(PPVManagementDto ppvManagementDto)
+        public async Task<IActionResult> AddChampionshipTypeManagement(ChampionshipTypeManagementDto championshipTypeManagementDto)
         {
-            var result = await _ppvManagementBAL.AddPPVManagement(ppvManagementDto);
+            var result = await _championshipTypeManagementBAL.AddChampionshipTypeManagement(championshipTypeManagementDto);
             if (result == true)
             {
                 return Ok("Successfully added new data!");
@@ -60,9 +59,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdatePPVManagement(PPVManagementDto ppvManagementDto)
+        public async Task<IActionResult> UpdateChampionshipTypeManagement(ChampionshipTypeManagementDto championshipTypeManagementDto)
         {
-            var result = await _ppvManagementBAL.UpdatePPVManagement(ppvManagementDto);
+            var result = await _championshipTypeManagementBAL.UpdateChampionshipTypeManagement(championshipTypeManagementDto);
             if (result == true)
             {
                 return Ok("Your changes have been successfully updated!");
@@ -74,9 +73,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> SoftDeletePPVManagement(string id)
+        public async Task<IActionResult> SoftDeleteChampionshipTypeManagement(string id)
         {
-            var result = await _ppvManagementBAL.SoftDeletePPVManagement(new Guid(id));
+            var result = await _championshipTypeManagementBAL.SoftDeleteChampionshipTypeManagement(new Guid(id));
             if (result == true)
             {
                 return Ok("Successfully deleted!");
@@ -88,9 +87,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePPVManagement(string id)
+        public async Task<IActionResult> DeleteChampionshipTypeManagement(string id)
         {
-            var result = await _ppvManagementBAL.DeletePPVManagement(new Guid(id));
+            var result = await _championshipTypeManagementBAL.DeleteChampionshipTypeManagement(new Guid(id));
             if (result == true)
             {
                 return Ok("Successfully deleted!");

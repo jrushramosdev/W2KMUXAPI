@@ -34,6 +34,7 @@ namespace W2KMUXAPI
             services.AddTransient<IPPVManagementBAL, PPVManagementBAL>();
             services.AddTransient<ITeamHistoryBAL, TeamHistoryBAL>();
             services.AddTransient<ITeamManagementBAL, TeamManagementBAL>();
+            services.AddTransient<IChampionshipTypeManagementBAL, ChampionshipTypeManagementBAL>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();

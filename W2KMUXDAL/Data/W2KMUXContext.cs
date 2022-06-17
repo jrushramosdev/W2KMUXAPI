@@ -23,6 +23,8 @@ namespace W2KMUXDAL.Data
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<TeamHistory> TeamHistory { get; set; }
         public virtual DbSet<Superstar> Superstars { get; set; }
+        public virtual DbSet<Championship> Championships { get; set; }
+        public virtual DbSet<ChampionshipType> ChampionshipTypes { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -103,6 +105,16 @@ namespace W2KMUXDAL.Data
                 entity.Property(e => e.SuperstarName)
                     .IsRequired()
                     .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Championship>(entity =>
+            {
+                entity.ToTable("Championship");
+            });
+
+            modelBuilder.Entity<ChampionshipType>(entity =>
+            {
+                entity.ToTable("ChampionshipType");
             });
 
             OnModelCreatingPartial(modelBuilder);
