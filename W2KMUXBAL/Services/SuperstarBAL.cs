@@ -24,12 +24,33 @@ namespace W2KMUXBAL.Services
         public async Task<IEnumerable<SuperstarDto>> GetSuperstarList()
         {
             var result = await unitOfWork.SuperstarRepository.GetSuperstarList();
+
+            foreach(var superstar in result)
+            {
+                var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(superstar.SuperstarId);
+
+                if (existSuperstar != null)
+                {
+                    superstar.ChampionshipId = existSuperstar.ChampionshipId;
+                    superstar.ChampionshipName = existSuperstar.ChampionshipName;
+                }
+            }
+            
             return result;
         }
 
         public async Task<SuperstarDto> GetSuperstar(Guid id)
         {
             var result = await unitOfWork.SuperstarRepository.GetSuperstar(id);
+
+            var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(result.SuperstarId);
+
+            if (existSuperstar != null)
+            {
+                result.ChampionshipId = existSuperstar.ChampionshipId;
+                result.ChampionshipName = existSuperstar.ChampionshipName;
+            }
+
             return result;
         }
 

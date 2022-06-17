@@ -10,7 +10,7 @@ using W2KMUXDAL.Models;
 
 namespace W2KMUXDAL.Repositories
 {
-    internal class ChampionshipTypeManagementRepository : IChampionshipTypeManagementRepository
+    public class ChampionshipTypeManagementRepository : IChampionshipTypeManagementRepository
     {
         private readonly W2KMUXContext _context;
 
@@ -24,12 +24,13 @@ namespace W2KMUXDAL.Repositories
             List<ChampionshipTypeManagementDto> championshipTypeManagementDto = new List<ChampionshipTypeManagementDto>();
 
             championshipTypeManagementDto = await (from championshiptype in _context.ChampionshipTypes
-                                                  select new ChampionshipTypeManagementDto
-                                                  {
-                                                      ChampionshipTypeId = championshiptype.ChampionshipTypeId,
-                                                      ChampionshipTypeName = championshiptype.ChampionshipTypeName,
-                                                      IsActive = championshiptype.IsActive
-                                                  }).ToListAsync();
+                                                   orderby championshiptype.ChampionshipTypeName
+                                                   select new ChampionshipTypeManagementDto
+                                                   {
+                                                       ChampionshipTypeId = championshiptype.ChampionshipTypeId,
+                                                       ChampionshipTypeName = championshiptype.ChampionshipTypeName,
+                                                       IsActive = championshiptype.IsActive
+                                                   }).ToListAsync();
 
             return championshipTypeManagementDto;
         }

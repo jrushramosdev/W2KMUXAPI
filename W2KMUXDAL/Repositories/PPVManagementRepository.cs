@@ -10,7 +10,7 @@ using W2KMUXDAL.Models;
 
 namespace W2KMUXDAL.Repositories
 {
-    internal class PPVManagementRepository : IPPVManagementRepository
+    public class PPVManagementRepository : IPPVManagementRepository
     {
         private readonly W2KMUXContext _context;
 

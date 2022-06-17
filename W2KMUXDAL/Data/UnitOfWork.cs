@@ -16,6 +16,7 @@ namespace W2KMUXDAL.Data
         public IPPVManagementRepository PPVManagementRepository => new PPVManagementRepository(datacontext);
         public ITeamHistoryRepository TeamHistoryRepository => new TeamHistoryRepository(datacontext);
         public ITeamManagementRepository TeamManagementRepository => new TeamManagementRepository(datacontext);
+        public IChampionshipManagementRepository ChampionshipManagementRepository => new ChampionshipManagementRepository(datacontext);
         public IChampionshipTypeManagementRepository ChampionshipTypeManagementRepository => new ChampionshipTypeManagementRepository(datacontext);
 
         public async Task<bool> SaveAsync()
