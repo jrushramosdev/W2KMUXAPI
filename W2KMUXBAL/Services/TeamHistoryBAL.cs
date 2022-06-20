@@ -12,13 +12,10 @@ namespace W2KMUXBAL.Services
     public class TeamHistoryBAL : ITeamHistoryBAL
     {
         private readonly IUnitOfWork unitOfWork;
-        //private readonly ISuperstarBAL _superstarBAL;
 
         public TeamHistoryBAL(IUnitOfWork unitOfWork)
-        //public TeamHistoryBAL(IUnitOfWork unitOfWork, ISuperstarBAL superstarBAL)
         {
             this.unitOfWork = unitOfWork;
-            //_superstarBAL = superstarBAL;
         }
 
         public async Task<IEnumerable<TeamHistoryDto>> GetTeamHistoryList()
@@ -116,8 +113,7 @@ namespace W2KMUXBAL.Services
 
         public async Task<TeamHistorySuperstar> GetTeamHistorySuperstarData(Guid SuperstarId, bool teamHistoryIsActive)
         {
-             var superstar = await unitOfWork.SuperstarRepository.GetSuperstar(SuperstarId); // Get Superstar
-            //var superstar = await _superstarBAL.GetSuperstar(SuperstarId); // Get Superstar
+            var superstar = await unitOfWork.SuperstarRepository.GetSuperstar(SuperstarId); // Get Superstar
 
             TeamHistorySuperstar result = new TeamHistorySuperstar()
             {

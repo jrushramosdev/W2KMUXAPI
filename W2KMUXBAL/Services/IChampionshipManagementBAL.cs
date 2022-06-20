@@ -15,5 +15,7 @@ namespace W2KMUXBAL.Services
         Task<bool> UpdateChampionshipManagement(ChampionshipManagementDto championshipManagementDto);
         Task<bool> SoftDeleteChampionshipManagement(Guid id);
         Task<bool> DeleteChampionshipManagement(Guid id);
+
+        Task<IEnumerable<ChampionsNestedDto>> GetChampionsNestedList();
     }
 }

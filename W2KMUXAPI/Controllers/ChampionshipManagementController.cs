@@ -99,5 +99,19 @@ namespace W2KMUXAPI.Controllers
                 return BadRequest("No data deleted!");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetChampionsNestedList()
+        {
+            var result = await _championshipManagementBAL.GetChampionsNestedList();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound("No data found!");
+            }
+        }
     }
 }

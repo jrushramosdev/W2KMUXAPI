@@ -24,6 +24,7 @@ namespace W2KMUXDAL.Repositories
             List<ChampionshipManagementDto> championshipManagementDto = new List<ChampionshipManagementDto>();
 
             championshipManagementDto = await (from championship in _context.Championships
+                                               orderby championship.ChampionshipOrder
                                                select new ChampionshipManagementDto
                                                {
                                                    ChampionshipId = championship.ChampionshipId,
