@@ -35,6 +35,9 @@ namespace W2KMUXDAL.Models
         public string SuperstarGender { get; set; }
         public string SuperstarRole{ get; set; }
         public Guid? SuperstarShowId { get; set; }
+        public Guid? ChampionshipId { get; set; }
+        public Guid? ChampionshipTypeId { get; set; }
+        public string ChampionshipName { get; set; }
         public bool IsActive { get; set; }
     }
 }

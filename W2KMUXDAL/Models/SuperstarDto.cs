@@ -16,8 +16,8 @@ namespace W2KMUXDAL.Models
         public string ShowName { get; set; }
         public Guid? TeamId { get; set; }
         public string TeamName { get; set; }
-        public bool IsChampion { get; set; }
         public Guid? ChampionshipId { get; set; }
+        public Guid? ChampionshipTypeId { get; set; }
         public string ChampionshipName { get; set; }
         public bool IsInjured { get; set; }
         public bool IsActive { get; set; }

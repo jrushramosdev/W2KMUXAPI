@@ -24,12 +24,13 @@ namespace W2KMUXDAL.Repositories
             List<ChampionshipTypeManagementDto> championshipTypeManagementDto = new List<ChampionshipTypeManagementDto>();
 
             championshipTypeManagementDto = await (from championshiptype in _context.ChampionshipTypes
-                                                   orderby championshiptype.ChampionshipTypeName
+                                                   orderby championshiptype.ChampionshipTypeOrder
                                                    select new ChampionshipTypeManagementDto
                                                    {
                                                        ChampionshipTypeId = championshiptype.ChampionshipTypeId,
                                                        ChampionshipTypeName = championshiptype.ChampionshipTypeName,
-                                                       IsActive = championshiptype.IsActive
+                                                       IsActive = championshiptype.IsActive,
+                                                       ChampionshipTypeOrder = championshiptype.ChampionshipTypeOrder
                                                    }).ToListAsync();
 
             return championshipTypeManagementDto;
@@ -45,7 +46,8 @@ namespace W2KMUXDAL.Repositories
                                                   {
                                                       ChampionshipTypeId = championshiptype.ChampionshipTypeId,
                                                       ChampionshipTypeName = championshiptype.ChampionshipTypeName,
-                                                      IsActive = championshiptype.IsActive
+                                                      IsActive = championshiptype.IsActive,
+                                                      ChampionshipTypeOrder = championshiptype.ChampionshipTypeOrder
                                                   }).FirstOrDefaultAsync();
 
             return championshipTypeManagementDto;
@@ -53,9 +55,12 @@ namespace W2KMUXDAL.Repositories
 
         public void AddChampionshipTypeManagement(ChampionshipTypeManagementDto championshipTypeManagementDto)
         {
+            int championshipTypeOrder = _context.ChampionshipTypes.ToList().Max(m => m.ChampionshipTypeOrder) + 1;
+
             ChampionshipType championshipType = new ChampionshipType()
             {
                 ChampionshipTypeName = championshipTypeManagementDto.ChampionshipTypeName,
+                ChampionshipTypeOrder = championshipTypeOrder,
                 IsActive = true
             };
 

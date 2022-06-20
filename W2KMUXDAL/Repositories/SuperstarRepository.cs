@@ -35,10 +35,21 @@ namespace W2KMUXDAL.Repositories
                                     ShowName = superstar.Show.ShowName,
                                     TeamId = superstar.TeamId,
                                     TeamName = superstar.Team.TeamName,
-                                    IsChampion = superstar.IsChampion,
                                     IsInjured = superstar.IsInjured,
                                     IsActive = superstar.IsActive
                                 }).ToListAsync();
+
+            foreach(var superstar in superstarDto)
+            {
+                var championSuperstar = _context.Championships.FirstOrDefault(m => m.SuperstarId == superstar.SuperstarId);
+
+                if (championSuperstar != null)
+                {
+                    superstar.ChampionshipId = championSuperstar.ChampionshipId;
+                    superstar.ChampionshipTypeId = championSuperstar.ChampionshipTypeId;
+                    superstar.ChampionshipName = championSuperstar.ChampionshipName;
+                }
+            }
 
             return superstarDto;
         }
@@ -59,10 +70,18 @@ namespace W2KMUXDAL.Repositories
                                     ShowName = superstar.Show.ShowName,
                                     TeamId = superstar.TeamId,
                                     TeamName = superstar.Team.TeamName,
-                                    IsChampion = superstar.IsChampion,
                                     IsInjured = superstar.IsInjured,
                                     IsActive = superstar.IsActive
                                 }).FirstOrDefaultAsync();
+
+            var championSuperstar = _context.Championships.FirstOrDefault(m => m.SuperstarId == superstarDto.SuperstarId);
+
+            if (championSuperstar != null)
+            {
+                superstarDto.ChampionshipId = championSuperstar.ChampionshipId;
+                superstarDto.ChampionshipTypeId = championSuperstar.ChampionshipTypeId;
+                superstarDto.ChampionshipName = championSuperstar.ChampionshipName;
+            }
 
             return superstarDto;
         }
@@ -83,7 +102,6 @@ namespace W2KMUXDAL.Repositories
                                       ShowName = superstar.Show.ShowName,
                                       TeamId = superstar.TeamId,
                                       TeamName = superstar.Team.TeamName,
-                                      IsChampion = superstar.IsChampion,
                                       IsInjured = superstar.IsInjured,
                                       IsActive = superstar.IsActive
                                   }).FirstOrDefaultAsync();
@@ -100,7 +118,6 @@ namespace W2KMUXDAL.Repositories
                 Role = superstarDto.Role,
                 ShowId = superstarDto.ShowId,
                 TeamId = superstarDto.TeamId,
-                IsChampion = false,
                 IsInjured = superstarDto.IsInjured,
                 IsActive = superstarDto.IsActive
             };
@@ -120,7 +137,6 @@ namespace W2KMUXDAL.Repositories
                 superstar.Role = superstarDto.Role;
                 superstar.ShowId = superstarDto.ShowId;
                 superstar.TeamId = superstarDto.TeamId;
-                superstar.IsChampion = superstarDto.IsChampion;
                 superstar.IsInjured = superstarDto.IsInjured;
                 superstar.IsActive = superstarDto.IsActive;
             }

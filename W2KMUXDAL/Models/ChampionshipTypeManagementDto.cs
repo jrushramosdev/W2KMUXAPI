@@ -11,5 +11,6 @@ namespace W2KMUXDAL.Models
         public Guid ChampionshipTypeId { get; set; }
         public string ChampionshipTypeName { get; set; }
         public bool IsActive { get; set; }
+        public int ChampionshipTypeOrder { get; set; }
     }
 }

@@ -12,10 +12,13 @@ namespace W2KMUXBAL.Services
     public class TeamHistoryBAL : ITeamHistoryBAL
     {
         private readonly IUnitOfWork unitOfWork;
+        //private readonly ISuperstarBAL _superstarBAL;
 
         public TeamHistoryBAL(IUnitOfWork unitOfWork)
+        //public TeamHistoryBAL(IUnitOfWork unitOfWork, ISuperstarBAL superstarBAL)
         {
             this.unitOfWork = unitOfWork;
+            //_superstarBAL = superstarBAL;
         }
 
         public async Task<IEnumerable<TeamHistoryDto>> GetTeamHistoryList()
@@ -113,7 +116,8 @@ namespace W2KMUXBAL.Services
 
         public async Task<TeamHistorySuperstar> GetTeamHistorySuperstarData(Guid SuperstarId, bool teamHistoryIsActive)
         {
-            var superstar = await unitOfWork.SuperstarRepository.GetSuperstar(SuperstarId); // Get Superstar
+             var superstar = await unitOfWork.SuperstarRepository.GetSuperstar(SuperstarId); // Get Superstar
+            //var superstar = await _superstarBAL.GetSuperstar(SuperstarId); // Get Superstar
 
             TeamHistorySuperstar result = new TeamHistorySuperstar()
             {
@@ -122,6 +126,9 @@ namespace W2KMUXBAL.Services
                 SuperstarGender = superstar.Gender,
                 SuperstarRole = superstar.Role,
                 SuperstarShowId = superstar.ShowId,
+                ChampionshipId = superstar.ChampionshipId,
+                ChampionshipTypeId = superstar.ChampionshipTypeId,
+                ChampionshipName = superstar.ChampionshipName,
                 IsActive = teamHistoryIsActive
             };
 
@@ -136,6 +143,7 @@ namespace W2KMUXBAL.Services
                 {
                     var gender = "Male";
                     var role = "Face";
+                    var championship = "";
                     Guid? showid = null;
 
                     int malecount = 0;
@@ -163,6 +171,12 @@ namespace W2KMUXBAL.Services
                             heelcount = heelcount + 1;
                         }
 
+                        if (superstar.ChampionshipTypeId == new Guid("C0912FE2-F8B6-4D35-88EA-48733A9A343F")) // TAG TEAM
+                        {
+                            championship = superstar.ChampionshipName;
+
+                        }
+
                         showid = superstar.SuperstarShowId;
                     }
 
@@ -179,6 +193,7 @@ namespace W2KMUXBAL.Services
                     teamhistory.TeamCount = teamhistory.Superstar.Count();
                     teamhistory.TeamGender = gender;
                     teamhistory.TeamRole = role;
+                    teamhistory.TeamChampionship = championship;
                     teamhistory.TeamShowId = showid;
                 }
             }

@@ -13,7 +13,6 @@ namespace W2KMUXDAL.Data.Models
         public string Role { get; set; }
         public Guid? ShowId { get; set; }
         public Guid? TeamId { get; set; }
-        public bool IsChampion { get; set; }
         public bool IsInjured { get; set; }
         public bool IsActive { get; set; }
 

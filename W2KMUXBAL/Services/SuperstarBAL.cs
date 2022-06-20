@@ -25,16 +25,17 @@ namespace W2KMUXBAL.Services
         {
             var result = await unitOfWork.SuperstarRepository.GetSuperstarList();
 
-            foreach(var superstar in result)
-            {
-                var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(superstar.SuperstarId);
+            //foreach(var superstar in result)
+            //{
+            //    var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(superstar.SuperstarId);
 
-                if (existSuperstar != null)
-                {
-                    superstar.ChampionshipId = existSuperstar.ChampionshipId;
-                    superstar.ChampionshipName = existSuperstar.ChampionshipName;
-                }
-            }
+            //    if (existSuperstar != null)
+            //    {
+            //        superstar.ChampionshipId = existSuperstar.ChampionshipId;
+            //        superstar.ChampionshipTypeId = existSuperstar.ChampionshipTypeId;
+            //        superstar.ChampionshipName = existSuperstar.ChampionshipName;
+            //    }
+            //}
             
             return result;
         }
@@ -43,13 +44,14 @@ namespace W2KMUXBAL.Services
         {
             var result = await unitOfWork.SuperstarRepository.GetSuperstar(id);
 
-            var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(result.SuperstarId);
+            //var existSuperstar = await unitOfWork.ChampionshipManagementRepository.GetChampionshipManagementBySuperstarId(result.SuperstarId);
 
-            if (existSuperstar != null)
-            {
-                result.ChampionshipId = existSuperstar.ChampionshipId;
-                result.ChampionshipName = existSuperstar.ChampionshipName;
-            }
+            //if (existSuperstar != null)
+            //{
+            //    result.ChampionshipId = existSuperstar.ChampionshipId;
+            //    result.ChampionshipTypeId = existSuperstar.ChampionshipTypeId;
+            //    result.ChampionshipName = existSuperstar.ChampionshipName;
+            //}
 
             return result;
         }
