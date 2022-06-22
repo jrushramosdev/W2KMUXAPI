@@ -16,6 +16,7 @@ namespace W2KMUXDAL.Data
         ITeamManagementRepository TeamManagementRepository { get; }
         IChampionshipManagementRepository ChampionshipManagementRepository { get; }
         IChampionshipTypeManagementRepository ChampionshipTypeManagementRepository { get; }
+        IMatchTypeManagementRepository MatchTypeManagementRepository { get; }
 
         Task<bool> SaveAsync();
     }

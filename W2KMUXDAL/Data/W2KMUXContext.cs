@@ -25,6 +25,9 @@ namespace W2KMUXDAL.Data
         public virtual DbSet<Superstar> Superstars { get; set; }
         public virtual DbSet<Championship> Championships { get; set; }
         public virtual DbSet<ChampionshipType> ChampionshipTypes { get; set; }
+        public virtual DbSet<MatchTitle> MatchTitles { get; set; }
+        public virtual DbSet<MatchType> MatchTypes { get; set; }
+        public virtual DbSet<MatchFormat> MatchFormats { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -115,6 +118,21 @@ namespace W2KMUXDAL.Data
             modelBuilder.Entity<ChampionshipType>(entity =>
             {
                 entity.ToTable("ChampionshipType");
+            });
+
+            modelBuilder.Entity<MatchTitle>(entity =>
+            {
+                entity.ToTable("MatchTitle");
+            });
+
+            modelBuilder.Entity<MatchType>(entity =>
+            {
+                entity.ToTable("MatchType");
+            });
+
+            modelBuilder.Entity<MatchFormat>(entity =>
+            {
+                entity.ToTable("MatchFormat");
             });
 
             OnModelCreatingPartial(modelBuilder);
