@@ -9,19 +9,19 @@ namespace W2KMUXAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MatchTypeManagementController : ControllerBase
+    public class MatchFormatManagementController : ControllerBase
     {
-        private readonly IMatchTypeManagementBAL _matchTypeManagementBAL;
+        private readonly IMatchFormatManagementBAL _matchFormatManagementBAL;
 
-        public MatchTypeManagementController(IMatchTypeManagementBAL matchTypeManagementBAL)
+        public MatchFormatManagementController(IMatchFormatManagementBAL matchFormatManagementBAL)
         {
-            _matchTypeManagementBAL = matchTypeManagementBAL;
+            _matchFormatManagementBAL = matchFormatManagementBAL;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMatchTypeManagementList()
+        public async Task<IActionResult> GetMatchFormatManagementList()
         {
-            var result = await _matchTypeManagementBAL.GetMatchTypeManagementList();
+            var result = await _matchFormatManagementBAL.GetMatchFormatManagementList();
             //return NotFound("No data found!"); // For test only
             if (result.Count() > 0)
             {
@@ -34,9 +34,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMatchTypeManagement(string id)
+        public async Task<IActionResult> GetMatchFormatManagement(string id)
         {
-            var result = await _matchTypeManagementBAL.GetMatchTypeManagement(new Guid(id));
+            var result = await _matchFormatManagementBAL.GetMatchFormatManagement(new Guid(id));
             if (result != null)
             {
                 return Ok(result);
@@ -48,9 +48,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMatchTypeManagement(MatchTypeManagementDto matchTypeManagementDto)
+        public async Task<IActionResult> AddMatchFormatManagement(MatchFormatManagementDto matchFormatManagementDto)
         {
-            var result = await _matchTypeManagementBAL.AddMatchTypeManagement(matchTypeManagementDto);
+            var result = await _matchFormatManagementBAL.AddMatchFormatManagement(matchFormatManagementDto);
             if (result == true)
             {
                 return Ok("Successfully added new data!");
@@ -62,9 +62,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMatchTypeManagement(MatchTypeManagementDto matchTypeManagementDto)
+        public async Task<IActionResult> UpdateMatchFormatManagement(MatchFormatManagementDto matchFormatManagementDto)
         {
-            var result = await _matchTypeManagementBAL.UpdateMatchTypeManagement(matchTypeManagementDto);
+            var result = await _matchFormatManagementBAL.UpdateMatchFormatManagement(matchFormatManagementDto);
             if (result == true)
             {
                 return Ok("Your changes have been successfully updated!");
@@ -76,9 +76,9 @@ namespace W2KMUXAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMatchTypeManagement(string id)
+        public async Task<IActionResult> DeleteMatchFormatManagement(string id)
         {
-            var result = await _matchTypeManagementBAL.DeleteMatchTypeManagement(new Guid(id));
+            var result = await _matchFormatManagementBAL.DeleteMatchFormatManagement(new Guid(id));
             if (result == true)
             {
                 return Ok("Successfully deleted!");

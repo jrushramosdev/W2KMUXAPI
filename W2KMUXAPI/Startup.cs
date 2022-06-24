@@ -37,6 +37,7 @@ namespace W2KMUXAPI
             services.AddTransient<IChampionshipManagementBAL, ChampionshipManagementBAL>();
             services.AddTransient<IChampionshipTypeManagementBAL, ChampionshipTypeManagementBAL>();
             services.AddTransient<IMatchTypeManagementBAL, MatchTypeManagementBAL>();
+            services.AddTransient<IMatchFormatManagementBAL, MatchFormatManagementBAL>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllers();

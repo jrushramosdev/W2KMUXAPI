@@ -19,6 +19,7 @@ namespace W2KMUXDAL.Data
         public IChampionshipManagementRepository ChampionshipManagementRepository => new ChampionshipManagementRepository(datacontext);
         public IChampionshipTypeManagementRepository ChampionshipTypeManagementRepository => new ChampionshipTypeManagementRepository(datacontext);
         public IMatchTypeManagementRepository MatchTypeManagementRepository => new MatchTypeManagementRepository(datacontext);
+        public IMatchFormatManagementRepository MatchFormatManagementRepository => new MatchFormatManagementRepository(datacontext);
 
         public async Task<bool> SaveAsync()
         {

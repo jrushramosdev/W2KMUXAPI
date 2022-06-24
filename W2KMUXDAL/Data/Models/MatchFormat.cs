@@ -14,5 +14,7 @@ namespace W2KMUXDAL.Data.Models
         public int HandicapCount { get; set; }
         public int ParticipantCount { get; set; }
         public int MatchFormatOrder { get; set; }
+
+        public virtual MatchType MatchType { get; set; }
     }
 }

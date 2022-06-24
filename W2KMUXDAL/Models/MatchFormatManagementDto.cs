@@ -11,6 +11,7 @@ namespace W2KMUXDAL.Models
         public Guid MatchFormatId { get; set; }
         public string MatchFormatName { get; set; }
         public Guid MatchTypeId { get; set; }
+        public string MatchTypeName { get; set; }
         public int TeamsCount { get; set; }
         public int HandicapCount { get; set; }
         public int ParticipantCount { get; set; }
