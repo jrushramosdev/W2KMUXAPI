@@ -28,6 +28,10 @@ namespace W2KMUXDAL.Data
         public virtual DbSet<MatchTitle> MatchTitles { get; set; }
         public virtual DbSet<MatchType> MatchTypes { get; set; }
         public virtual DbSet<MatchFormat> MatchFormats { get; set; }
+        public virtual DbSet<PPVMatch> PPVMatch { get; set; }
+        public virtual DbSet<PPVMatchChampionship> PPVMatchChampionships { get; set; }
+        public virtual DbSet<PPVMatchTeam> PPVMatchTeams { get; set; }
+        public virtual DbSet<PPVMatchParticipant> PPVMatchParticipants { get; set; }
 
         //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //        {
@@ -133,6 +137,26 @@ namespace W2KMUXDAL.Data
             modelBuilder.Entity<MatchFormat>(entity =>
             {
                 entity.ToTable("MatchFormat");
+            });
+
+            modelBuilder.Entity<PPVMatch>(entity =>
+            {
+                entity.ToTable("PPVMatch");
+            });
+
+            modelBuilder.Entity<PPVMatchChampionship>(entity =>
+            {
+                entity.ToTable("PPVMatchChampionship");
+            });
+
+            modelBuilder.Entity<PPVMatchTeam>(entity =>
+            {
+                entity.ToTable("PPVMatchTeam");
+            });
+
+            modelBuilder.Entity<PPVMatchParticipant>(entity =>
+            {
+                entity.ToTable("PPVMatchParticipant");
             });
 
             OnModelCreatingPartial(modelBuilder);
