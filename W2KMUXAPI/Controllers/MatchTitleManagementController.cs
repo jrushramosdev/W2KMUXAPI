@@ -9,11 +9,11 @@ namespace W2KMUXAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class MatchTitleController : ControllerBase
+    public class MatchTitleManagementController : ControllerBase
     {
         private readonly IMatchTitleManagementBAL _matchTitleManagementBAL;
 
-        public MatchTitleController(IMatchTitleManagementBAL matchTitleManagementBAL)
+        public MatchTitleManagementController(IMatchTitleManagementBAL matchTitleManagementBAL)
         {
             _matchTitleManagementBAL = matchTitleManagementBAL;
         }

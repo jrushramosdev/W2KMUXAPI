@@ -9,6 +9,8 @@ namespace W2KMUXDAL.Repositories
 {
     public interface IPPVMatchRepository
     {
+        Task<IEnumerable<PPVMatchDto>> GetPPVMatchList(Guid ppvid, int ppvcount);
         Task<PPVMatchLatestDto> GetPPVMatchLatest();
+        Task<PPVMatchLatestDto> GetPPVMatchDefault();
     }
 }

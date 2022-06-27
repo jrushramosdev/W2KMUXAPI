@@ -19,6 +19,32 @@ namespace W2KMUXDAL.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<PPVMatchDto>> GetPPVMatchList(Guid ppvid, int ppvcount)
+        {
+            List<PPVMatchDto> ppvMatchDto = new List<PPVMatchDto>();
+
+            ppvMatchDto = await (from ppvmatch in _context.PPVMatch
+                                where ppvmatch.PPVMatchId == ppvid
+                                where ppvmatch.PPVMatchCount == ppvcount
+                                orderby ppvmatch.PPVMatchOrder
+                                select new PPVMatchDto
+                                {
+                                    PPVMatchId = ppvmatch.PPVMatchId,
+                                    PPVMatchName = ppvmatch.PPVMatchName,
+                                    PPVMatchCount = ppvmatch.PPVMatchCount,
+                                    PPVMatchOrder = ppvmatch.PPVMatchOrder,
+                                    PPVId = ppvmatch.PPVMatchId,
+                                    PPVName = ppvmatch.Ppv.PPVName,
+                                    ShowId = ppvmatch.ShowId,
+                                    ShowName = ppvmatch.Show.ShowName,
+                                    MatchTitleId = ppvmatch.MatchTitleId,
+                                    MatchFormatId = ppvmatch.MatchFormatId,
+                                    IsDone = ppvmatch.isDone
+                                }).ToListAsync();
+
+            return ppvMatchDto;
+        }
+
         public async Task<PPVMatchLatestDto> GetPPVMatchLatest()
         {
             PPVMatchLatestDto ppvMatchLatestDto = new PPVMatchLatestDto();
@@ -30,8 +56,26 @@ namespace W2KMUXDAL.Repositories
                                      {
                                         PPVMatchCount = ppvmatch.PPVMatchCount,
                                         PPVId = ppvmatch.PPVMatchId,
+                                        PPVName = ppvmatch.Ppv.PPVName,
                                         IsDone = ppvmatch.isDone
                                      }).FirstOrDefaultAsync();
+
+            return ppvMatchLatestDto;
+        }
+
+        public async Task<PPVMatchLatestDto> GetPPVMatchDefault()
+        {
+            PPVMatchLatestDto ppvMatchLatestDto = new PPVMatchLatestDto();
+
+            ppvMatchLatestDto = await (from ppv in _context.Ppvs
+                                       orderby ppv.PPVOrder
+                                       select new PPVMatchLatestDto
+                                       {
+                                           PPVMatchCount = 1,
+                                           PPVId = ppv.PPVId,
+                                           PPVName = ppv.PPVName,
+                                           IsDone = false
+                                       }).FirstOrDefaultAsync();
 
             return ppvMatchLatestDto;
         }

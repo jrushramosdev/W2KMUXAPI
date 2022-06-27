@@ -9,6 +9,7 @@ namespace W2KMUXBAL.Services
 {
     public interface IPPVMatchBAL
     {
+        Task<IEnumerable<PPVMatchNestedDto>> GetPPVMatchNestedList(Guid ppvid, int ppvcount);
         Task<PPVMatchLatestDto> GetPPVMatchLatest();
     }
 }

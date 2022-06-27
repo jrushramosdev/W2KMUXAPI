@@ -17,9 +17,43 @@ namespace W2KMUXBAL.Services
             this.unitOfWork = unitOfWork;
         }
 
+        public async Task<IEnumerable<PPVMatchNestedDto>> GetPPVMatchNestedList(Guid ppvid, int ppvcount)
+        {
+            List<PPVMatchNestedDto> ppvMatchNestedDto = new List<PPVMatchNestedDto>();
+
+            var ppvMatchList = await unitOfWork.PPVMatchRepository.GetPPVMatchList(ppvid, ppvcount);
+
+            if (ppvMatchList.Count() > 0)
+            {
+                foreach (var ppvMatch in ppvMatchList)
+                {
+
+                }
+            }
+            else
+            {
+                var ppvManagement = await unitOfWork.PPVManagementRepository.GetPPVManagement(ppvid);
+                PPVMatchNestedDto tempPPVMatchNestedDto = new PPVMatchNestedDto()
+                {
+                    PPVMatchCount = ppvcount,
+                    PPVId = ppvManagement.PPVId,
+                    PPVName = ppvManagement.PPVName,
+                    IsDone = false
+                };
+
+                ppvMatchNestedDto.Add(tempPPVMatchNestedDto);
+            }
+
+            return ppvMatchNestedDto;
+        }
+
         public async Task<PPVMatchLatestDto> GetPPVMatchLatest()
         {
             var result = await unitOfWork.PPVMatchRepository.GetPPVMatchLatest();
+            if (result == null)
+            {
+                result = await unitOfWork.PPVMatchRepository.GetPPVMatchDefault();
+            }
             return result;
         }
     }

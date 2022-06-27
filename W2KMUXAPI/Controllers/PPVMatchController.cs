@@ -18,6 +18,20 @@ namespace W2KMUXAPI.Controllers
             _ppvMatchBAL = ppvMatchBAL;
         }
 
+        [HttpGet("{ppvid}/{ppvcount}")]
+        public async Task<IActionResult> GetPPVMatchNestedList(string ppvid, int ppvcount)
+        {
+            var result = await _ppvMatchBAL.GetPPVMatchNestedList(new Guid(ppvid), ppvcount);
+            if (result.Count() > 0)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return NotFound("No data found!");
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetPPVMatchLatest()
         {

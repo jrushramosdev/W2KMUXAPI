@@ -25,6 +25,7 @@ namespace W2KMUXDAL.Models
     {
         public int PPVMatchCount { get; set; }
         public Guid PPVId { get; set; }
+        public string PPVName { get; set; }
         public bool IsDone { get; set; }
     }
 
