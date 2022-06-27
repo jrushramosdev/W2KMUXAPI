@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using W2KMUXBAL.Services;
 using W2KMUXDAL.Models;
@@ -21,7 +22,7 @@ namespace W2KMUXAPI.Controllers
         public async Task<IActionResult> GetPPVManagementList()
         {
             var result = await _ppvManagementBAL.GetPPVManagementList();
-            if (result != null)
+            if (result.Count() > 0)
             {
                 return Ok(result);
             }

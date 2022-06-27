@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using W2KMUXBAL.Services;
 using W2KMUXDAL.Models;
@@ -22,7 +23,7 @@ namespace W2KMUXAPI.Controllers
         {
             var result = await _showManagementBAL.GetShowManagementList();
             //return NotFound("No data found!"); // For test only
-            if (result != null)
+            if (result.Count() > 0)
             {
                 return Ok(result);
             }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using W2KMUXBAL.Services;
 using W2KMUXDAL.Models;
@@ -20,7 +21,7 @@ namespace W2KMUXAPI.Controllers
         public async Task<IActionResult> GetChampionshipManagementList()
         {
             var result = await _championshipManagementBAL.GetChampionshipManagementList();
-            if (result != null)
+            if (result.Count() > 0)
             {
                 return Ok(result);
             }
@@ -104,7 +105,7 @@ namespace W2KMUXAPI.Controllers
         public async Task<IActionResult> GetChampionsNestedList()
         {
             var result = await _championshipManagementBAL.GetChampionsNestedList();
-            if (result != null)
+            if (result.Count() > 0)
             {
                 return Ok(result);
             }
