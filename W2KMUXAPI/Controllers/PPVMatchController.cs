@@ -45,5 +45,19 @@ namespace W2KMUXAPI.Controllers
                 return NotFound("No data found!");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPPVMatch(PPVMatchNestedDto ppvmatch)
+        {
+            var result = await _ppvMatchBAL.AddPPVMatch(ppvmatch);
+            if (result == true)
+            {
+                return Ok("Successfully added new data!");
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
     }
 }

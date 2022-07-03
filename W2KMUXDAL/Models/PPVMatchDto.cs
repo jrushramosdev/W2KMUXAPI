@@ -45,7 +45,6 @@ namespace W2KMUXDAL.Models
         public bool IsDone { get; set; }
         public List<PPVMatchChampionshipDto> Championship { get; set; }
         public List<PPVMatchTeamDto> Team { get; set; }
-        public List<PPVMatchParticipantDto> Participant { get; set; }
     }
 
     public class PPVMatchChampionshipDto
@@ -62,6 +61,7 @@ namespace W2KMUXDAL.Models
         public Guid PPVMatchId { get; set; }
         public bool isChampion { get; set; }
         public bool isWinner { get; set; }
+        public List<PPVMatchParticipantDto> Participant { get; set; }
     }
 
     public class PPVMatchParticipantDto
@@ -71,4 +71,35 @@ namespace W2KMUXDAL.Models
         public Guid SuperstarId { get; set; }
         public string SuperstarName { get; set; }
     }
+
+    #region ADD PPV MATCH DTO
+    public class AddPPVMatchNestedDto
+    {
+        public string PPVMatchName { get; set; }
+        public int PPVMatchCount { get; set; }
+        public int PPVMatchOrder { get; set; }
+        public Guid PPVId { get; set; }
+        public Guid ShowId { get; set; }
+        public Guid MatchTitleId { get; set; }
+        public Guid MatchFormatId { get; set; }
+        public List<AddPPVMatchChampionshipDto> Championship { get; set; }
+        public List<AddPPVMatchTeamDto> Team { get; set; }
+    }
+
+    public class AddPPVMatchChampionshipDto
+    {
+        public Guid? ChampionshipId { get; set; }
+    }
+
+    public class AddPPVMatchTeamDto
+    {
+        public bool IsChampion { get; set; }
+        public List<AddPPVMatchParticipantDto> Participant { get; set; }
+    }
+
+    public class AddPPVMatchParticipantDto
+    {
+        public Guid SuperstarId { get; set; }
+    }
+    #endregion
 }

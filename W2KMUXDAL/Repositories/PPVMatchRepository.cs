@@ -19,6 +19,7 @@ namespace W2KMUXDAL.Repositories
             _context = context;
         }
 
+        #region GET
         public async Task<IEnumerable<PPVMatchDto>> GetPPVMatchList(Guid ppvid, int ppvcount)
         {
             List<PPVMatchDto> ppvMatchDto = new List<PPVMatchDto>();
@@ -79,5 +80,86 @@ namespace W2KMUXDAL.Repositories
 
             return ppvMatchLatestDto;
         }
+
+        public async Task<IEnumerable<PPVMatchChampionshipDto>> GetPPVMatchChampionshipList(Guid ppvmatchid)
+        {
+            List<PPVMatchChampionshipDto> ppvMatchChampionshipDto = new List<PPVMatchChampionshipDto>();
+
+            ppvMatchChampionshipDto = await (from ppvmatchchampionship in _context.PPVMatchChampionships
+                                             where ppvmatchchampionship.PPVMatchId == ppvmatchid
+                                             select new PPVMatchChampionshipDto
+                                             {
+                                                 PPVMatchChampionshipId = ppvmatchchampionship.PPVMatchChampionshipId,
+                                                 PPVMatchId = ppvmatchchampionship.PPVMatchId,
+                                                 ChampionshipId = ppvmatchchampionship.ChampionshipId,
+                                                 ChampionshipName = ppvmatchchampionship.Championship.ChampionshipName
+                                             }).ToListAsync();
+
+            return ppvMatchChampionshipDto;
+        }
+        #endregion
+
+        #region ADD
+        public PPVMatch AddPPVMatch(PPVMatchNestedDto ppvMatchNestedDto)
+        {
+            int ppvmatchorder = 1;
+            var ppvmatchcheck = _context.PPVMatch.Where(c => c.PPVId == ppvMatchNestedDto.PPVId && c.PPVMatchCount == ppvMatchNestedDto.PPVMatchCount).FirstOrDefault();
+            if (ppvmatchcheck != null)
+            {
+                ppvmatchorder = _context.PPVMatch.Where(c => c.PPVId == ppvMatchNestedDto.PPVId && c.PPVMatchCount == ppvMatchNestedDto.PPVMatchCount)
+                    .ToList().Max(m => m.PPVMatchOrder) + 1;
+            };
+
+            PPVMatch ppvmatch = new PPVMatch()
+            {
+                PPVMatchName = ppvMatchNestedDto.PPVMatchName,
+                PPVMatchCount = ppvMatchNestedDto.PPVMatchCount,
+                PPVMatchOrder = ppvmatchorder,
+                PPVId = ppvMatchNestedDto.PPVId,
+                ShowId = ppvMatchNestedDto.ShowId,
+                MatchTitleId = ppvMatchNestedDto.MatchTitleId,
+                MatchFormatId = ppvMatchNestedDto.MatchFormatId,
+                isDone = false
+            };
+
+            _context.PPVMatch.AddAsync(ppvmatch);
+            return ppvmatch;
+        }
+
+        public void AddPPVMatchChampionship(PPVMatchChampionshipDto ppvMatchChampionshipDto)
+        {
+            PPVMatchChampionship ppvMatchChampionship = new PPVMatchChampionship()
+            {
+                PPVMatchId = ppvMatchChampionshipDto.PPVMatchId,
+                ChampionshipId = ppvMatchChampionshipDto.ChampionshipId
+            };
+
+            _context.PPVMatchChampionships.AddAsync(ppvMatchChampionship);
+        }
+
+        public PPVMatchTeam AddPPVMatchTeam(PPVMatchTeamDto ppvMatchTeamDto)
+        {
+            PPVMatchTeam ppvMatchTeam = new PPVMatchTeam()
+            {
+                PPVMatchId = ppvMatchTeamDto.PPVMatchId,
+                isChampion = ppvMatchTeamDto.isChampion,
+                isWinner = false
+            };
+
+            _context.PPVMatchTeams.AddAsync(ppvMatchTeam);
+            return ppvMatchTeam;
+        }
+
+        public void AddPPVMatchParticipant(PPVMatchParticipantDto ppvMatchParticipantDto)
+        {
+            PPVMatchParticipant ppvMatchParticipant = new PPVMatchParticipant()
+            {
+                PPVMatchTeamId = ppvMatchParticipantDto.PPVMatchTeamId,
+                SuperstarId = ppvMatchParticipantDto.SuperstarId
+            };
+
+            _context.PPVMatchParticipants.AddAsync(ppvMatchParticipant);
+        }
+        #endregion
     }
 }
