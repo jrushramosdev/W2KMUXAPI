@@ -59,5 +59,19 @@ namespace W2KMUXAPI.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePPVMatch(string id)
+        {
+            var result = await _ppvMatchBAL.DeletePPVMatch(new Guid(id));
+            if (result == true)
+            {
+                return Ok("Successfully deleted!");
+            }
+            else
+            {
+                return BadRequest("No data deleted!");
+            }
+        }
     }
 }

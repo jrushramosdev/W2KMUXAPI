@@ -12,5 +12,6 @@ namespace W2KMUXBAL.Services
         Task<IEnumerable<PPVMatchNestedDto>> GetPPVMatchNestedList(Guid ppvid, int ppvcount);
         Task<PPVMatchLatestDto> GetPPVMatchLatest();
         Task<bool> AddPPVMatch(PPVMatchNestedDto ppvMatchNestedDto);
+        Task<bool> DeletePPVMatch(Guid id);
     }
 }

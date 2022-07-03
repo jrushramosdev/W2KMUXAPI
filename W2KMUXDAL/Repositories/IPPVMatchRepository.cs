@@ -10,13 +10,27 @@ namespace W2KMUXDAL.Repositories
 {
     public interface IPPVMatchRepository
     {
-        Task<IEnumerable<PPVMatchDto>> GetPPVMatchList(Guid ppvid, int ppvcount);
+        #region GET
+        Task<IEnumerable<PPVMatchNestedDto>> GetPPVMatchList(Guid ppvid, int ppvcount);
         Task<PPVMatchLatestDto> GetPPVMatchLatest();
         Task<PPVMatchLatestDto> GetPPVMatchDefault();
         Task<IEnumerable<PPVMatchChampionshipDto>> GetPPVMatchChampionshipList(Guid ppvmatchid);
+        Task<IEnumerable<PPVMatchTeamDto>> GetPPVMatchTeamList(Guid ppvmatchid);
+        Task<IEnumerable<PPVMatchParticipantDto>> GetPPVMatchParticipantList(Guid ppvmatchteamid);
+        #endregion
+
+        #region ADD
         PPVMatch AddPPVMatch(PPVMatchNestedDto ppvMatchNestedDto);
         void AddPPVMatchChampionship(PPVMatchChampionshipDto ppvMatchChampionshipDto);
         PPVMatchTeam AddPPVMatchTeam(PPVMatchTeamDto ppvMatchTeamDto);
         void AddPPVMatchParticipant(PPVMatchParticipantDto ppvMatchParticipantDto);
+        #endregion
+
+        #region DELETE
+        void DeletePPVMatch(Guid id);
+        void DeletePPVMatchChampionship(Guid ppvmatchid);
+        void DeletePPVMatchTeam(Guid ppvmatchid);
+        void DeletePPVMatchParticipant(Guid ppvmatchteamid);
+        #endregion
     }
 }

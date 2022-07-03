@@ -20,21 +20,21 @@ namespace W2KMUXDAL.Repositories
         }
 
         #region GET
-        public async Task<IEnumerable<PPVMatchDto>> GetPPVMatchList(Guid ppvid, int ppvcount)
+        public async Task<IEnumerable<PPVMatchNestedDto>> GetPPVMatchList(Guid ppvid, int ppvcount)
         {
-            List<PPVMatchDto> ppvMatchDto = new List<PPVMatchDto>();
+            List<PPVMatchNestedDto> ppvMatchDto = new List<PPVMatchNestedDto>();
 
             ppvMatchDto = await (from ppvmatch in _context.PPVMatch
-                                where ppvmatch.PPVMatchId == ppvid
+                                where ppvmatch.PPVId == ppvid
                                 where ppvmatch.PPVMatchCount == ppvcount
                                 orderby ppvmatch.PPVMatchOrder
-                                select new PPVMatchDto
+                                select new PPVMatchNestedDto
                                 {
                                     PPVMatchId = ppvmatch.PPVMatchId,
                                     PPVMatchName = ppvmatch.PPVMatchName,
                                     PPVMatchCount = ppvmatch.PPVMatchCount,
                                     PPVMatchOrder = ppvmatch.PPVMatchOrder,
-                                    PPVId = ppvmatch.PPVMatchId,
+                                    PPVId = ppvmatch.PPVId,
                                     PPVName = ppvmatch.Ppv.PPVName,
                                     ShowId = ppvmatch.ShowId,
                                     ShowName = ppvmatch.Show.ShowName,
@@ -96,6 +96,40 @@ namespace W2KMUXDAL.Repositories
                                              }).ToListAsync();
 
             return ppvMatchChampionshipDto;
+        }
+
+        public async Task<IEnumerable<PPVMatchTeamDto>> GetPPVMatchTeamList(Guid ppvmatchid)
+        {
+            List<PPVMatchTeamDto> ppvMatchTeamDto = new List<PPVMatchTeamDto>();
+
+            ppvMatchTeamDto = await (from ppvmatchteam in _context.PPVMatchTeams
+                                    where ppvmatchteam.PPVMatchId == ppvmatchid
+                                    select new PPVMatchTeamDto
+                                    {
+                                        PPVMatchTeamId = ppvmatchteam.PPVMatchTeamId,
+                                        PPVMatchId = ppvmatchteam.PPVMatchId,
+                                        isChampion = ppvmatchteam.isChampion,
+                                        isWinner = ppvmatchteam.isWinner
+                                    }).ToListAsync();
+
+            return ppvMatchTeamDto;
+        }
+
+        public async Task<IEnumerable<PPVMatchParticipantDto>> GetPPVMatchParticipantList(Guid ppvmatchteamid)
+        {
+            List<PPVMatchParticipantDto> ppvMatchTeamDto = new List<PPVMatchParticipantDto>();
+
+            ppvMatchTeamDto = await (from ppvmatchparticipant in _context.PPVMatchParticipants
+                                     where ppvmatchparticipant.PPVMatchTeamId == ppvmatchteamid
+                                     select new PPVMatchParticipantDto
+                                     {
+                                         PPVMatchParticipantId = ppvmatchparticipant.PPVMatchParticipantId,
+                                         PPVMatchTeamId = ppvmatchparticipant.PPVMatchTeamId,
+                                         SuperstarId = ppvmatchparticipant.SuperstarId,
+                                         SuperstarName = ppvmatchparticipant.Superstar.SuperstarName
+                                     }).ToListAsync();
+
+            return ppvMatchTeamDto;
         }
         #endregion
 
@@ -159,6 +193,48 @@ namespace W2KMUXDAL.Repositories
             };
 
             _context.PPVMatchParticipants.AddAsync(ppvMatchParticipant);
+        }
+        #endregion
+
+        #region DELETE
+        public void DeletePPVMatch(Guid id)
+        {
+            var ppvMatch = _context.PPVMatch.FirstOrDefault(m => m.PPVMatchId == id);
+
+            if (ppvMatch != null)
+            {
+                _context.PPVMatch.Remove(ppvMatch);
+            }
+        }
+
+        public void DeletePPVMatchChampionship(Guid ppvmatchid)
+        {
+            var ppvMatchChampionship = _context.PPVMatchChampionships.Where(m => m.PPVMatchId == ppvmatchid).ToList();
+
+            if (ppvMatchChampionship.Count() > 0)
+            {
+                _context.PPVMatchChampionships.RemoveRange(ppvMatchChampionship);
+            }
+        }
+
+        public void DeletePPVMatchTeam(Guid ppvmatchid)
+        {
+            var ppvMatchTeam = _context.PPVMatchTeams.Where(m => m.PPVMatchId == ppvmatchid).ToList();
+
+            if (ppvMatchTeam.Count() > 0)
+            {
+                _context.PPVMatchTeams.RemoveRange(ppvMatchTeam);
+            }
+        }
+
+        public void DeletePPVMatchParticipant(Guid ppvmatchteamid)
+        {
+            var ppvMatchParticipant = _context.PPVMatchParticipants.Where(m => m.PPVMatchTeamId == ppvmatchteamid).ToList();
+
+            if (ppvMatchParticipant.Count() > 0)
+            {
+                _context.PPVMatchParticipants.RemoveRange(ppvMatchParticipant);
+            }
         }
         #endregion
     }

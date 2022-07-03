@@ -28,7 +28,19 @@ namespace W2KMUXBAL.Services
             {
                 foreach (var ppvMatch in ppvMatchList)
                 {
+                    var ppvMatchChampionshipList = await unitOfWork.PPVMatchRepository.GetPPVMatchChampionshipList(ppvMatch.PPVMatchId);
+                    var ppvMatchTeamList = await unitOfWork.PPVMatchRepository.GetPPVMatchTeamList(ppvMatch.PPVMatchId);
 
+                    foreach (var ppvMatchTeam in ppvMatchTeamList)
+                    {
+                        var ppvMatchParticipantList = await unitOfWork.PPVMatchRepository.GetPPVMatchParticipantList(ppvMatchTeam.PPVMatchTeamId);
+                        ppvMatchTeam.Participant = (List<PPVMatchParticipantDto>)ppvMatchParticipantList;
+                    }
+
+                    ppvMatch.Championship = (List<PPVMatchChampionshipDto>)ppvMatchChampionshipList;
+                    ppvMatch.Team = (List<PPVMatchTeamDto>)ppvMatchTeamList;
+
+                    ppvMatchNestedDto.Add(ppvMatch);
                 }
             }
             else
@@ -88,6 +100,29 @@ namespace W2KMUXBAL.Services
 
                 transaction.Complete();
             }
+            return result;
+        }
+
+        public async Task<bool> DeletePPVMatch(Guid id)
+        {
+            var result = false;
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var ppvMatchTeamList = await unitOfWork.PPVMatchRepository.GetPPVMatchTeamList(id);
+                foreach (var ppvmatchteam in ppvMatchTeamList)
+                {
+                    unitOfWork.PPVMatchRepository.DeletePPVMatchParticipant(ppvmatchteam.PPVMatchTeamId);
+                }
+                await unitOfWork.SaveAsync();
+                unitOfWork.PPVMatchRepository.DeletePPVMatchChampionship(id);
+                unitOfWork.PPVMatchRepository.DeletePPVMatchTeam(id);
+                await unitOfWork.SaveAsync();
+                unitOfWork.PPVMatchRepository.DeletePPVMatch(id);
+                await unitOfWork.SaveAsync();
+                result = true;
+                transaction.Complete();
+            }
+           
             return result;
         }
     }
